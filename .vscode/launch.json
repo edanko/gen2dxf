@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "testread",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/testread/main.go",
+            "env": {},
+            "args": [
+                "05102-3PBIM105_2S-1S.gen",
+                //"05102-NO_S-11S.gen",
+                //"12040-3PKRL2100_S-1-F1S.gen",
+                //"12040-3PRTL4_S-1S.gen",
+                //"05101-3P_12700_1P-1P.gen",
+                //"05101-P2_6700_1P-29P.gen",
+                //"05101-P2GLH470_1P-1P.gen",
+            ]
+        },{
+            "name": "conv",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/gen2dxf/main.go",
+            "env": {},
+            "args": [
+                "-conv",
+                "in\\05002\\12-056001-05002-N06.gen"
+            ]
+        },{
+            "name": "split",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/cmd/gen2dxf/main.go",
+            "env": {},
+            "args": [
+                "-split", 
+                "in\\05002\\12-056001-05002-N06.gen"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+# github.com/davecgh/go-spew v1.1.1
+## explicit
+github.com/davecgh/go-spew/spew
+# github.com/edanko/dxf v0.0.0-20201208095808-124b31333634
+## explicit
+github.com/edanko/dxf
+github.com/edanko/dxf/block
+github.com/edanko/dxf/class
+github.com/edanko/dxf/color
+github.com/edanko/dxf/drawing
+github.com/edanko/dxf/entity
+github.com/edanko/dxf/format
+github.com/edanko/dxf/geometry
+github.com/edanko/dxf/handle
+github.com/edanko/dxf/header
+github.com/edanko/dxf/insunit
+github.com/edanko/dxf/object
+github.com/edanko/dxf/table
+# github.com/inconshreveable/mousetrap v1.0.0
+github.com/inconshreveable/mousetrap
+# github.com/spf13/cobra v1.1.1
+## explicit
+github.com/spf13/cobra
+# github.com/spf13/pflag v1.0.5
+github.com/spf13/pflag
