@@ -85,6 +85,7 @@ type End struct {
 	Nose                     float64
 	H                        float64
 	HFact                    float64
+	HFactAdjust              float64
 	AngleTs                  float64
 	AngleOs                  float64
 	DepthTs                  float64
@@ -108,6 +109,7 @@ type End struct {
 	NoseFlange               float64
 	HFlange                  float64
 	HFactFlange              float64
+	HFactAdjustFlange        float64
 	AngleTsFlange            float64
 	AngleOsFlange            float64
 	DepthTsFlange            float64
@@ -131,6 +133,7 @@ type End struct {
 	NoseFlange2              float64
 	HFlange2                 float64
 	HFactFlange2             float64
+	HFactAdjustFlange2       float64
 	AngleTsFlange2           float64
 	AngleOsFlange2           float64
 	DepthTsFlange2           float64
@@ -344,6 +347,9 @@ func readEnd(s *bufio.Scanner) *End {
 		case "H_FACT":
 			e.HFact, _ = strconv.ParseFloat(l[1], 64)
 
+		case "H_FACT_ADJUST":
+			e.HFactAdjust, _ = strconv.ParseFloat(l[1], 64)
+
 		case "ANGLE_TS":
 			e.AngleTs, _ = strconv.ParseFloat(l[1], 64)
 
@@ -422,6 +428,9 @@ func readEnd(s *bufio.Scanner) *End {
 		case "H_FACT_FLANGE":
 			e.HFactFlange, _ = strconv.ParseFloat(l[1], 64)
 
+		case "H_FACT_ADJUST_FLANGE":
+			e.HFactAdjustFlange, _ = strconv.ParseFloat(l[1], 64)
+
 		case "ANGLE_TS_FLANGE":
 			e.AngleTsFlange, _ = strconv.ParseFloat(l[1], 64)
 
@@ -487,6 +496,9 @@ func readEnd(s *bufio.Scanner) *End {
 
 		case "H_FACT_FLANGE2":
 			e.HFactFlange2, _ = strconv.ParseFloat(l[1], 64)
+
+		case "H_FACT_ADJUST_FLANGE2":
+			e.HFactAdjustFlange2, _ = strconv.ParseFloat(l[1], 64)
 
 		case "ANGLE_TS_FLANGE2":
 			e.AngleTsFlange2, _ = strconv.ParseFloat(l[1], 64)

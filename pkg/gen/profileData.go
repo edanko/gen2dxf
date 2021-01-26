@@ -32,6 +32,27 @@ type ProfileData struct {
 	DirectionSign       string
 	DirectionTrace      string
 	BevelTrace          int
+	BevelCode           int
+	BevelName           string
+	BevelType           int
+	BevelVariant        int
+	E                   float64
+	Gap                 float64
+	Chamfer             float64
+	Alpha               float64
+	Beta                float64
+	Nose                float64
+	H                   float64
+	HFact               float64
+	HFactAdjust         float64
+	AngleTs             float64
+	AngleOs             float64
+	DepthTs             float64
+	DepthOs             float64
+	ChamferWidthTs      float64
+	ChamferWidthOs      float64
+	ChamferHeightTs     float64
+	ChamferHeightOs     float64
 	Grinding            int
 	Assembly            string
 	AssemblyHigh        string
@@ -162,6 +183,48 @@ func readProfileData(s *bufio.Scanner) *ProfileData {
 
 		case "BEVEL_TRACE":
 			p.BevelTrace, _ = strconv.Atoi(l[1])
+		case "BEVEL_CODE":
+			p.BevelCode, _ = strconv.Atoi(l[1])
+		case "BEVEL_NAME":
+			p.BevelName = l[1]
+		case "BEVEL_TYPE":
+			p.BevelType, _ = strconv.Atoi(l[1])
+		case "BEVEL_VARIANT":
+			p.BevelVariant, _ = strconv.Atoi(l[1])
+		case "E":
+			p.E, _ = strconv.ParseFloat(l[1], 64)
+		case "GAP":
+			p.Gap, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER":
+			p.Chamfer, _ = strconv.ParseFloat(l[1], 64)
+		case "ALPHA":
+			p.Alpha, _ = strconv.ParseFloat(l[1], 64)
+		case "BETA":
+			p.Beta, _ = strconv.ParseFloat(l[1], 64)
+		case "NOSE":
+			p.Nose, _ = strconv.ParseFloat(l[1], 64)
+		case "H":
+			p.H, _ = strconv.ParseFloat(l[1], 64)
+		case "H_FACT":
+			p.HFact, _ = strconv.ParseFloat(l[1], 64)
+		case "H_FACT_ADJUST":
+			p.HFactAdjust, _ = strconv.ParseFloat(l[1], 64)
+		case "ANGLE_TS":
+			p.AngleTs, _ = strconv.ParseFloat(l[1], 64)
+		case "ANGLE_OS":
+			p.AngleOs, _ = strconv.ParseFloat(l[1], 64)
+		case "DEPTH_TS":
+			p.DepthTs, _ = strconv.ParseFloat(l[1], 64)
+		case "DEPTH_OS":
+			p.DepthOs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_WIDTH_TS":
+			p.ChamferWidthTs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_WIDTH_OS":
+			p.ChamferWidthOs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_HEIGHT_TS":
+			p.ChamferHeightTs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_HEIGHT_OS":
+			p.ChamferHeightOs, _ = strconv.ParseFloat(l[1], 64)
 
 		case "GRINDING":
 			p.Grinding, _ = strconv.Atoi(l[1])
