@@ -359,6 +359,8 @@ func getMarkingTextPosition(c *gen.Contour) (x float64, y float64, rot float64) 
 
 							x, y = math2.LineMidPoint(sx, sy, ex, ey)
 
+							rot = math2.GetAngle(sx, sy, ex, ey) * 180.0 / math.Pi
+
 							break
 						}
 					}
@@ -381,14 +383,23 @@ func getMarkingTextPosition(c *gen.Contour) (x float64, y float64, rot float64) 
 				}
 			}
 
-			x, y = math2.GetSegmentMidPoint(c.Segments[longestIdx])
+			seg := c.Segments[longestIdx]
+
+			x, y = math2.GetSegmentMidPoint(seg)
+
+			rot = math2.GetAngle(seg.StartU, seg.StartV, seg.U, seg.V) * 180.0 / math.Pi
+
 		}
 	} else {
-		x, y = math2.GetSegmentMidPoint(c.Segments[0])
+		seg := c.Segments[0]
+
+		x, y = math2.GetSegmentMidPoint(seg)
+
+		rot = math2.GetAngle(seg.StartU, seg.StartV, seg.U, seg.V) * 180.0 / math.Pi
+
 	}
 
-	rot = math2.GetAngle(sx, sy, ex, ey) * 180.0 / math.Pi
-	x, y = math2.AddAngle(x, y, rot+90.0, AddAngleLength)
+	x, y = math2.AddAngle(x, y, rot, AddAngleLength)
 
 	return
 }
