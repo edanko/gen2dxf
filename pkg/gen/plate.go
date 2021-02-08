@@ -145,3 +145,92 @@ func readPlate(r io.Reader) *PlateGen {
 
 	return g
 }
+
+func (g *PlateGen) Mirror() {
+	for _, p := range g.PartData {
+		if p.Mirrored == 0 {
+			p.Mirrored = 1
+		} else {
+			p.Mirrored = 0
+		}
+
+		p.PartCogU = 0 - p.PartCogU
+
+		for _, s := range p.StringData {
+			s.PosU = 0 - s.PosU
+			// angle?
+		}
+
+		for _, i := range p.IdleData {
+			invertContour(i.Contour)
+		}
+
+		for _, b := range p.BurningData {
+			invertContour(b.Contour)
+			if b.GeometryData != nil {
+				invertContour(b.GeometryData.Contour)
+			}
+		}
+
+		for _, m := range p.MarkingData {
+			if m.MarkingSide == "TS" {
+				m.MarkingSide = "OS"
+			} else {
+				m.MarkingSide = "TS"
+			}
+			invertContour(m.Contour)
+		}
+
+		for _, g := range p.GeometryData {
+			invertContour(g.Contour)
+		}
+
+		for _, l := range p.LabeltextData {
+			l.TextPositionU = 0 - l.TextPositionU
+
+			for _, c := range l.GeometryData {
+				invertContour(c.Contour)
+			}
+
+		}
+
+		for _, b := range p.BumpData {
+			invertContour(b.Contour)
+		}
+
+		for _, e := range p.EdgeData {
+			e.StartU = 0 - e.StartU
+			e.EndU = 0 - e.EndU
+
+		}
+	}
+
+}
+
+func invertContour(c *Contour) {
+
+	if c == nil {
+		return
+	}
+
+	c.StartU = 0 - c.StartU
+
+	for _, s := range c.Segments {
+		s.Sweep = -s.Sweep
+		s.OriginU = -s.OriginU
+		s.StartU = -s.StartU
+		s.U = -s.U
+
+		if s.BevelData != nil && s.BevelData.BevelCode != 0 {
+			b := s.BevelData
+
+			b.BevelCode = -b.BevelCode
+			b.AngleTS, b.AngleOS = b.AngleOS, b.AngleTS
+			b.Angle2TS, b.Angle2OS = b.Angle2OS, b.Angle2TS
+			b.DepthTS, b.DepthOS = b.DepthOS, b.DepthTS
+			b.ChamferWidthTS, b.ChamferWidthOS = b.ChamferWidthOS, b.ChamferWidthTS
+			b.Angle2Wts, b.Angle2Wos = b.Angle2Wos, b.Angle2Wts
+			b.ChamferHeightTS, b.ChamferHeightOS = b.ChamferHeightOS, b.ChamferHeightTS
+		}
+	}
+}
