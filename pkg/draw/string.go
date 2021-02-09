@@ -26,12 +26,10 @@ func addString(d *drawing.Drawing, sd *gen.StringData) {
 	case "EXCESS_LIMIT": //same as excess_geometry
 	case "PART_NAME":
 	case "POSNO":
+	case "BEVEL_ANGLE":
 
 	case "EXCESS_GEOMETRY":
 		drawText(d, sd.PosU, sd.PosV, 25, sd.Angle, sd.String, color.Red)
-
-	case "BEVEL_ANGLE":
-		//drawText(d, sd.PosU, sd.PosV, 25, sd.Angle, sd.String, color.Red)
 
 	default:
 		fmt.Println("string data type:", sd.Type)

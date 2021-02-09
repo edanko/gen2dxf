@@ -1,15 +1,9 @@
 package draw
 
 import (
-	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
 	"github.com/edanko/gen2dxf/pkg/gen"
-)
-
-const (
-	DirectionTextColor    = color.Cyan
-	DirectionMarkingColor = color.Yellow
 )
 
 func addDirection(d *drawing.Drawing, p *gen.PartData) {

@@ -8,10 +8,9 @@ import (
 )
 
 type Contour struct {
-	NoOfSeg int
-	StartU  float64
-	StartV  float64
-	//BevelData    *BevelData
+	NoOfSeg      int
+	StartU       float64
+	StartV       float64
 	ExcessData   *ExcessData
 	Segments     []*Segment
 	AuxilaryData []*AuxilaryData

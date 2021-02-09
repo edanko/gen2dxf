@@ -3,16 +3,8 @@ package draw
 import (
 	"fmt"
 
-	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/gen2dxf/pkg/gen"
-)
-
-const (
-	MarkingTSColor     = color.Cyan
-	MarkingTextTSColor = color.Red
-	MarkingOSColor     = 30
-	MarkingTextOSColor = 30
 )
 
 func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {
@@ -28,7 +20,10 @@ func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {
 		case "BRACKET":
 			continue
 
-		case "INCLINATION_ANGLE_LINE", "CUTOUT_CROSSING", "FLANGE_MARKING_LINE":
+		case "INCLINATION_ANGLE_LINE":
+			addMarkingWithText(d, md)
+
+		case "CUTOUT_CROSSING", "FLANGE_MARKING_LINE":
 			addMarking(d, md)
 
 		case "BENDING_MARK", "ADDED_CONTOUR", "FACE_PLATE_ALIGNMENT":
@@ -52,7 +47,6 @@ func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {
 	}
 }
 
-// add general marking
 func addMarking(d *drawing.Drawing, md *gen.MarkingData) {
 	switch md.MarkingSide {
 	case "TS":
@@ -67,7 +61,6 @@ func addMarking(d *drawing.Drawing, md *gen.MarkingData) {
 	}
 }
 
-// add general marking
 func addMarkingWithText(d *drawing.Drawing, md *gen.MarkingData) {
 	switch md.MarkingSide {
 	case "TS":

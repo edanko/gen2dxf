@@ -106,8 +106,8 @@ func (w *WCOG) GetQuantity(block, posno string) int {
 		}
 	}
 
-	fmt.Println("[x] block", block, "and pos", posno, "not found")
-	return -1
+	fmt.Println("[x] block", block, "and pos", posno, "not found, returning 1")
+	return 1
 }
 
 func filterPos(s string) string {

@@ -1,13 +1,8 @@
 package draw
 
 import (
-	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/gen2dxf/pkg/gen"
-)
-
-const (
-	IdleColor = color.Yellow
 )
 
 func addIdleData(d *drawing.Drawing, ids []*gen.IdleData) {

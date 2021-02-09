@@ -1,13 +1,8 @@
 package draw
 
 import (
-	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/gen2dxf/pkg/gen"
-)
-
-const (
-	GeometryColor = color.Cyan
 )
 
 func addGeometryData(d *drawing.Drawing, gds []*gen.GeometryData) {

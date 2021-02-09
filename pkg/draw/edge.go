@@ -3,16 +3,10 @@ package draw
 import (
 	"math"
 
-	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
 	"github.com/edanko/gen2dxf/pkg/gen"
 	"github.com/edanko/gen2dxf/pkg/math2"
-)
-
-const (
-	EdgeDataColor = color.Cyan
-	EdgeNameColor = color.Red
 )
 
 func addEdgeData(d *drawing.Drawing, gds []*gen.EdgeData) {
@@ -33,9 +27,8 @@ func addEdge(d *drawing.Drawing, gd *gen.EdgeData) {
 
 	x, y := math2.LineMidPoint(gd.StartU, gd.StartV, gd.EndU, gd.EndV)
 
-	rot := math2.GetAngle(gd.StartU, gd.StartV, gd.EndU, gd.EndV) * 180.0 / math.Pi
+	rot := math2.Angle(gd.StartU, gd.StartV, gd.EndU, gd.EndV) * 180.0 / math.Pi
 	x, y = math2.AddAngle(x, y, rot+90.0, AddAngleLength)
 
 	drawText(d, x, y, float64(MarkingTextHeight), rot, gd.Name, EdgeNameColor)
-
 }

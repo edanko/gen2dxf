@@ -150,16 +150,12 @@ import (
 	-221413 C21e-RO
 */
 
-func GetBevel(b *gen.BevelData) (name, nestix string) {
-
+func Bevel(b *gen.BevelData) (name, nestix string) {
 	if b == nil {
 		return "", ""
 	}
 
-	var name1, name2, name3 string
-
 	switch b.BevelCode {
-
 	// NONE
 	case -728, 727, 253, 103113, 103110, 103106, 103210, 203112, 0, 180, -253, -153, 113, -113, 153, -154, 181, 277, 717, 616, 177, -177, 143, -143, -243, 243, -203, 716, -716, -103, 203, -227, 227, 254, -254, -277, 255, -255, 103, 183:
 		name = ""
@@ -167,200 +163,103 @@ func GetBevel(b *gen.BevelData) (name, nestix string) {
 
 	// TS
 	case 331:
-		//name = "TSV15"
-		name1 = "A15"
-		name2 = "0"
+		name = "TSV15"
 		nestix = fmt.Sprintf("[V/15.0][S%.1f]", b.PlateThickness)
 
 	case 233, 133:
-		//name = "TSV20"
-		name1 = "A20"
-		name2 = "0"
+		name = "TSV20"
 		nestix = fmt.Sprintf("[V/20.0][S%.1f]", b.PlateThickness)
 
 	case 221, 121, 219, 315, 121413, 121214, 121110:
-		//name = "TSV25"
-		name1 = "A25"
-		name2 = "0"
+		name = "TSV25"
 		nestix = fmt.Sprintf("[V/25.0][S%.1f]", b.PlateThickness)
 
 	case 116, 145, 173, 114, 144, 172:
-		//name = "TSV45"
-		name1 = "A45"
-		name2 = "0"
+		name = "TSV45"
 		nestix = fmt.Sprintf("[V/45.0][S%.1f]", b.PlateThickness)
 
 	case 245, 273, 216, 248, 215, 293, 310, 392, 346, 244:
-		//name = "TSV50"
-		name1 = "A50"
-		name2 = "0"
+		name = "TSV50"
 		nestix = fmt.Sprintf("[V/45.0][S%.1f]", b.PlateThickness)
 
 	case 205:
-		name1 = fmt.Sprintf("%gA25", b.DepthTS)
-		name2 = fmt.Sprintf("%g", b.PlateThickness-b.DepthTS)
+		name = fmt.Sprintf("TSY25/%g", b.DepthTS)
 		nestix = fmt.Sprintf("[Y/25.0;%g][S%.1f]", b.DepthTS, b.PlateThickness)
 
 	case 204, 104, 104210:
-		name1 = fmt.Sprintf("%gA30", b.DepthTS)
-		name2 = fmt.Sprintf("%g", b.PlateThickness-b.DepthTS)
+		name = fmt.Sprintf("TSY30/%g", b.DepthTS)
 		nestix = fmt.Sprintf("[Y/30.0;%g][S%.1f]", b.DepthTS, b.PlateThickness)
 
 	case 391:
-		name1 = fmt.Sprintf("%gA50", b.DepthTS)
-		name2 = fmt.Sprintf("%g", b.PlateThickness-b.DepthTS)
+		name = fmt.Sprintf("TSY50/%g", b.DepthTS)
 		nestix = fmt.Sprintf("[Y/45.0;%g][S%.1f]", b.DepthTS, b.PlateThickness)
 
 	// OS
 	case -234:
-		//name = "OSV10"
-		name2 = "0"
-		name3 = "A10"
+		name = "OSV10"
 		nestix = fmt.Sprintf("[V\\10.0][S%.1f]", b.PlateThickness)
 
 	case -133, -233:
-		//name = "OSV20"
-		name2 = "0"
-		name3 = "A20"
+		name = "OSV20"
 		nestix = fmt.Sprintf("[V\\20.0][S%.1f]", b.PlateThickness)
 
 	case -121, -221, -221213, -221214, -221413, -121214:
-		//name = "OSV25"
-		name2 = "0"
-		name3 = "A25"
+		name = "OSV25"
 		nestix = fmt.Sprintf("[V\\25.0][S%.1f]", b.PlateThickness)
 
 	case -734:
-		//name = "OSV35"
-		name2 = "0"
-		name3 = "A35"
+		name = "OSV35"
 		nestix = fmt.Sprintf("[V\\35.0][S%.1f]", b.PlateThickness)
 
 	case -116, -145, -173, -144, -114, -172:
-		//name = "OSV45"
-		name2 = "0"
-		name3 = "A45"
+		name = "OSV45"
 		nestix = fmt.Sprintf("[V\\45.0][S%.1f]", b.PlateThickness)
 
 	case -245, -273, -216, -248, -346, -392, -244:
-		//name = "OSV50"
-		name2 = "0"
-		name3 = "A50"
+		name = "OSV50"
 		nestix = fmt.Sprintf("[V\\45.0][S%.1f]", b.PlateThickness)
 
-	case -104, -204:
-		/*
-			name2 = fmt.Sprintf("%g", b.DepthOS)
-			name3 = "A30"
-			nestix = fmt.Sprintf("[Y\\30.0;%g][S%.1f]", b.DepthOS, b.PlateThickness)
-		*/
-
-		name2 = "7"
-		name3 = "A30"
-		nestix = fmt.Sprintf("[Y\\30.0;7.0][S%.1f]", b.PlateThickness)
-
 	case -315, -205:
-		name2 = fmt.Sprintf("%g", b.PlateThickness-b.DepthOS)
-		name3 = "A25"
+		name = fmt.Sprintf("OSY25/%g", b.PlateThickness-b.DepthOS)
 		nestix = fmt.Sprintf("[Y\\25.0;%g][S%.1f]", b.PlateThickness-b.DepthOS, b.PlateThickness)
 
-	case -391:
-		name2 = fmt.Sprintf("%g", b.PlateThickness-b.DepthTS)
-		name3 = "A50"
+	case -104, -204:
+		name = "OSY30/7"
+		nestix = fmt.Sprintf("[Y\\30.0;7.0][S%.1f]", b.PlateThickness)
+
+	case -391, -398:
+		name = fmt.Sprintf("OSY50/%g", b.PlateThickness-b.DepthTS)
 		nestix = fmt.Sprintf("[Y\\45.0;%g][S%.1f]", b.PlateThickness-b.DepthOS, b.PlateThickness)
 
 	//BOTH
-	case 206122, 207140, 207120, 222132, 222120:
-		//name = "X25"
-		name1 = fmt.Sprintf("X%gA25", b.DepthTS+b.ChamferHeightTS)
-		name2 = "0"
+	case -222, 222, 206, -206, 122, -122, -207, -135, 207, 207338, 206122, 207140, 207120, 222132, 222120:
+		name = "X25"
 		//nestix = fmt.Sprintf("[X25;%.1f;25][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case -222, 222, 206, -206, 122, -122, -207, -135, 207, 207338:
-		//name = "X25"
-		name1 = fmt.Sprintf("X%gA25", b.PlateThickness/2)
-		name2 = "0"
-		//nestix = fmt.Sprintf("[X25;%.1f;25][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case 146, -146, 117, 150:
-		//name = "X45"
-		name1 = fmt.Sprintf("X%gA45", b.PlateThickness/2)
-		name2 = "0"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case 246, -246, 155, 274, -155, 22, 217:
-		//name = "X50"
-		name1 = fmt.Sprintf("X%gA50", b.PlateThickness/2)
-		name2 = "0"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case -348, 348:
-		// name = "K50-4"
-		name1 = fmt.Sprintf("X%gA50", b.DepthTS)
-		name2 = "4"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case 312:
-		// name = "K50-4"
-		name1 = fmt.Sprintf("X%gA50", b.DepthTS)
-		name2 = "2"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case 393, -393:
-		//name = "X50"
-		name1 = fmt.Sprintf("X%gA50", b.PlateThickness/2-2)
-		name2 = "4"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case -318, 318:
-		//name = "X27"
-		name1 = fmt.Sprintf("X%gA27", b.PlateThickness/2)
-		name2 = "0"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case 305:
-		//name = "K27-2"
-		name1 = fmt.Sprintf("X%gA27", b.PlateThickness-b.DepthTS)
-		name2 = "2"
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
-
-	case -398:
-		name2 = fmt.Sprintf("%g", b.DepthOS)
-		name3 = "A50"
-		nestix = fmt.Sprintf("[Y\\45.0;%g][S%.1f]", b.DepthOS, b.PlateThickness)
 
 	case -107:
 		if b.PlateThickness > 38 {
-			name1 = fmt.Sprintf("X%gA25", b.PlateThickness/2-1)
-			name2 = "2"
-
+			name = "K25-2"
 		} else {
-			//name = "X50"
-			name1 = fmt.Sprintf("X%gA30", b.PlateThickness/2-1)
-			name2 = "2"
-
+			name = "K30-2"
 		}
-		//nestix = fmt.Sprintf("[X45;%.1f;45][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
 
-	/*case -127:
-		name = "C43-RO"
-		nestix = ""
-		fmt.Println("C43-RO here")
-		spew.Dump(b)
+	case -318, 318:
+		name = "X27"
 
-	case -154, 154:
-		name = "T21-R"
-		nestix = ""*/
+	case 305:
+		name = "K27-2"
 
-	/*case 125:
-		name1 = "C39-R"
-		name2 = "0"
-		nestix = ""
+	case 146, -146, 117, 150:
+		name = "X45"
 
-	case -125:
-		name1 = "C39-RO"
-		name2 = "0"
-		nestix = ""*/
+	case 246, -246, 155, 274, -155, 22, 217:
+		name = "X50"
+
+	case -348, 348, 393, -393:
+		name = "K50-4"
+
+	case 312:
+		name = "K50-2"
 
 	default:
 		name = ""
@@ -369,31 +268,12 @@ func GetBevel(b *gen.BevelData) (name, nestix string) {
 	}
 
 	if b.ChamferHeightTS != 0.0 {
-		if name1 != "" {
-			name1 += "/"
-		}
-		name1 += fmt.Sprintf("%gL%g", b.ChamferHeightTS, b.ChamferWidthTS)
+		name = fmt.Sprintf("TSL%g-%g (%s)", b.ChamferWidthTS, b.PlateThickness-b.ChamferHeightTS, name)
 		nestix = ""
 	}
 	if b.ChamferHeightOS != 0.0 {
-		if name3 != "" {
-			name3 += "/"
-		}
-		name3 += fmt.Sprintf("%gL%g", b.ChamferHeightOS, b.ChamferWidthOS)
+		name = fmt.Sprintf("OSL%g-%g (%s)", b.ChamferWidthOS, b.PlateThickness-b.ChamferHeightOS, name)
 		nestix = ""
-	}
-
-	if name1 != "" {
-		name += name1
-		if name2 != "" {
-			name += "-"
-		}
-	}
-	if name2 != "" {
-		name += name2
-	}
-	if name3 != "" {
-		name += "-" + name3
 	}
 
 	return

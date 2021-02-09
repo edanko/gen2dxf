@@ -8,30 +8,21 @@ import (
 )
 
 func addPosNo(d *drawing.Drawing, p *gen.PartData) {
-
 	id := OrderString + "-" + p.BlockNo + "-" + p.PosNo
+
 	if p.Mirrored == 1 {
-		id += "m"
+		id += "(m)"
 	}
 
-	/* 	var x, y float64
+	var x, y float64
 
-	   	sds := p.StringData
-	   	if sds == nil {
-	   		x = p.PartCogU
-	   		y = p.PartCogV
-	   	} else {
-	   		for _, v := range sds {
-	   			if v.Type == "PART_NAME" {
-	   				x = v.PosU
-	   				y = v.PosV
-	   				break
-	   			}
-	   		}
-	   	} */
-
-	x := p.PartCogU
-	y := p.PartCogV - 15
+	if p.PartArea < MinPartAreaForDirectionMark {
+		x = p.PartCogU
+		y = p.PartCogV
+	} else {
+		x = p.PartCogU
+		y = p.PartCogV - 15
+	}
 
 	t := entity.NewText()
 	t.Value = id
