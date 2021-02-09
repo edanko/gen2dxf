@@ -3,12 +3,14 @@ package gen
 import (
 	"bufio"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
 type GeometryData struct {
-	Type    string
-	Contour *Contour
+	Type       string
+	RollAxisNo int
+	Contour    *Contour
 }
 
 func readGeometryData(s *bufio.Scanner) *GeometryData {
@@ -26,6 +28,9 @@ func readGeometryData(s *bufio.Scanner) *GeometryData {
 
 		case "GEOMETRY_TYPE", "TYPE":
 			m.Type = l[1]
+
+		case "ROLL_AXIS_NO":
+			m.RollAxisNo, _ = strconv.Atoi(l[1])
 
 		default:
 			fmt.Println("unknown field in geometry data:", l[0])
