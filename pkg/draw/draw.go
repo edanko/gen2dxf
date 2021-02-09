@@ -269,8 +269,8 @@ func drawMarkingText(d *drawing.Drawing, md *gen.MarkingData, color color.ColorN
 		sx := md.Contour.Segments[0].StartU
 		sy := md.Contour.Segments[0].StartV
 
-		ex := md.Contour.Segments[1].U
-		ey := md.Contour.Segments[1].V
+		ex := md.Contour.Segments[len(md.Contour.Segments)-1].U
+		ey := md.Contour.Segments[len(md.Contour.Segments)-1].V
 
 		x, y = math2.LineMidPoint(sx, sy, ex, ey)
 		rot = math2.Angle(sx, sy, ex, ey)
