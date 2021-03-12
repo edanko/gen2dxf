@@ -29,6 +29,8 @@ type BevelData struct {
 	Angle2Wos       float64
 	ChamferHeightTS float64
 	ChamferHeightOS float64
+	WeldTS          float64
+	WeldOS          float64
 }
 
 func readBevelData(s *bufio.Scanner) *BevelData {
@@ -103,6 +105,12 @@ func readBevelData(s *bufio.Scanner) *BevelData {
 
 		case "CHAMFER_HEIGHT_OS":
 			bd.ChamferHeightOS, _ = strconv.ParseFloat(l[1], 64)
+
+		case "WELD_TS":
+			bd.WeldTS, _ = strconv.ParseFloat(l[1], 64)
+
+		case "WELD_OS":
+			bd.WeldOS, _ = strconv.ParseFloat(l[1], 64)
 
 		default:
 			fmt.Println("unknown field in bevel data:", l[0])
