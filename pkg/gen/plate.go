@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 type PlateGen struct {
@@ -15,9 +14,6 @@ type PlateGen struct {
 }
 
 func ParsePlateFile(fname string) *PlateGen {
-
-	fmt.Println("[i] processing", filepath.Base(fname))
-
 	f, err := os.Open(fname)
 	if err != nil {
 		log.Fatalln(err)

@@ -48,7 +48,7 @@ var (
 func PlateToDXF(g *gen.PlateGen, w *wcog.WCOG) error {
 	for _, p := range g.PartData {
 
-		dir := time.Now().Format("06.01.02") + " " + p.BlockNo
+		dir := time.Now().Format("06.01.02") + " " + p.BlockNo + " dxf"
 		subdir := strconv.FormatFloat(g.GeneralData.RawThickness, 'f', -1, 64)
 		filename := OrderString + "-" + p.BlockNo + "-" + p.PosNo + ".dxf"
 

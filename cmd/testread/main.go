@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sync"
 
 	"github.com/edanko/gen2dxf/pkg/draw"
 	"github.com/edanko/gen2dxf/pkg/gen"
@@ -59,33 +58,21 @@ func main() {
 
 	wcog := wcog.ReadWCOGs(wcogs)
 
-	//l := len(gens)
+	l := len(gens)
 
-	var wg sync.WaitGroup
+	for i, fname := range gens {
+		fmt.Printf("[i] %d/%d (%s)\n", i+1, l, filepath.Base(fname))
 
-	for _, p := range gens {
-		wg.Add(1)
-		go func(p string) {
-			defer wg.Done()
+		g := gen.ParsePlateFile(fname)
 
-			g := gen.ParsePlateFile(p)
+		if g == nil {
+			continue
+		}
 
-			err = draw.PlateToDXF(g, wcog)
-			if err != nil {
-				log.Fatalln(err)
-			}
-		}(p)
-		/* 		fmt.Printf("[*] %d/%d...\n", i+1, l)
-
-		   		g := gen.ParsePlateFile(p)
-
-		   		err = draw.PlateToDXF(g, wcog)
-		   		if err != nil {
-		   			log.Fatalln(err)
-		   		} */
+		err = draw.PlateToDXF(g, wcog)
+		if err != nil {
+			log.Fatalln(err)
+		}
 
 	}
-
-	wg.Wait()
-
 }
