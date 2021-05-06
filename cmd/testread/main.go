@@ -66,6 +66,7 @@ func main() {
 		g := gen.ParsePlateFile(fname)
 
 		if g == nil {
+			fmt.Println(" - skipping")
 			continue
 		}
 

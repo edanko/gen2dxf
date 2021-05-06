@@ -20,11 +20,13 @@ import (
 	121 C21-R
 	122 C25-R
 	125 C39-R
+	131 C57-R
 	133 C62-P3
 	143 T3-R
 	144 T6-R
 	145 T7-R
 	146 T8-R
+	148 T10-RO
 	150 T12-R
 	153 T20-R
 	154 T21-R
@@ -100,16 +102,19 @@ import (
 	-113 C7-R
 	-114 C8-RO
 	-116 C12-RO
+	-118 C17-RO
 	-121 C21-RO
 	-122 C25-RO
 	-125 C39-RO
 	-127 C43-RO
+	-131 C57-R
 	-133 C62-P3O
 	-135 C64-P3O
 	-143 T3-R
 	-144 T6-RO
 	-145 T7-RO
 	-146 T8-RO
+	-148 T10-RO
 	-153 T20-R
 	-154 T21-R
 	-155 T22-R
@@ -124,6 +129,7 @@ import (
 	-216 C12e-RO
 	-221 C21e-RO
 	-222 C25e-KO
+	-224 C29e-R
 	-227 C43e-RO
 	-233 C62e-P3O
 	-234 C63e-P3O
@@ -154,6 +160,79 @@ import (
 	-221413 C21e-RO
 */
 
+func BevelGeneric(b *gen.BevelData) (name, nestix string) {
+	if b == nil {
+		return "", ""
+	}
+
+	//var plateThickness float64
+
+	//if b.ChamferHeightTS == 0.0 && b.ChamferHeightOS == 0.0 {
+	plateThickness := b.PlateThickness
+	//} else {
+	//	spew.Dump(b)
+	//}
+
+	//if b.BevelCode == 0 && b.ChamferHeightOS == 0 && b.ChamferHeightTS == 0 {
+	//	return "", ""
+	//}
+
+	// TSV
+	// OSV
+	// TSY
+	// OSY
+	// X or K
+	if b.AngleTS != 0 && b.AngleOS == 0 && plateThickness-b.DepthTS <= 2 {
+
+		name = fmt.Sprintf("TSV%g", b.AngleTS)
+		nestix = fmt.Sprintf("[V/%g][S%.1f]", b.AngleTS, plateThickness)
+
+	} else if b.AngleOS != 0 && b.AngleTS == 0 && plateThickness-b.DepthOS <= 2 {
+
+		name = fmt.Sprintf("OSV%g", b.AngleOS)
+		nestix = fmt.Sprintf("[V\\%g][S%.1f]", b.AngleOS, plateThickness)
+
+	} else if b.AngleTS != 0 && b.AngleOS == 0 && plateThickness-b.DepthTS > 2 {
+
+		name = fmt.Sprintf("TSY%g/%g", b.AngleTS, b.DepthTS)
+		nestix = fmt.Sprintf("[Y/%g;%g][S%.1f]", b.AngleTS, b.DepthTS, plateThickness)
+
+	} else if b.AngleOS != 0 && b.AngleTS == 0 && plateThickness-b.DepthOS > 2 {
+
+		name = fmt.Sprintf("OSY%g/%g", b.AngleOS, plateThickness-b.DepthOS)
+		nestix = fmt.Sprintf("[Y\\%g;%g][S%.1f]", b.AngleOS, plateThickness-b.DepthOS, plateThickness)
+
+	} else if b.AngleTS != 0 && b.AngleOS != 0 {
+
+		if b.AngleTS == b.AngleOS || b.DepthTS == b.DepthOS {
+
+			if plateThickness-(b.DepthTS+b.DepthOS) <= 2 {
+				name = fmt.Sprintf("X%g", b.AngleTS)
+				//nestix = fmt.Sprintf("[X25;%.1f;25][S%.1f]", plateThickness/2.0, plateThickness)
+			} else {
+				name = fmt.Sprintf("K%g-%g", b.AngleTS, plateThickness-(b.DepthTS+b.DepthOS))
+				//nestix = fmt.Sprintf("[X25;%.1f;25][S%.1f]", plateThickness/2.0, plateThickness)
+			}
+
+		} else {
+			fmt.Println("assymetric x or k bevel")
+			spew.Dump(b)
+		}
+
+	}
+
+	if b.ChamferHeightTS != 0.0 {
+		name = fmt.Sprintf("TSL%g-%g (%s)", b.ChamferWidthTS, plateThickness-b.ChamferHeightTS, name)
+		nestix = ""
+	}
+	if b.ChamferHeightOS != 0.0 {
+		name = fmt.Sprintf("OSL%g-%g (%s)", b.ChamferWidthOS, plateThickness-b.ChamferHeightOS, name)
+		nestix = ""
+	}
+
+	return
+}
+
 func Bevel(b *gen.BevelData) (name, nestix string) {
 	if b == nil {
 		return "", ""
@@ -174,11 +253,11 @@ func Bevel(b *gen.BevelData) (name, nestix string) {
 		name = "TSV20"
 		nestix = fmt.Sprintf("[V/20.0][S%.1f]", b.PlateThickness)
 
-	case 221, 121, 219, 315, 121413, 121214, 121110:
+	case 131, 221, 121, 219, 315, 121413, 121214, 121110:
 		name = "TSV25"
 		nestix = fmt.Sprintf("[V/25.0][S%.1f]", b.PlateThickness)
 
-	case 116, 145, 173, 114, 144, 172:
+	case 148, 116, 145, 173, 114, 144, 172:
 		name = "TSV45"
 		nestix = fmt.Sprintf("[V/45.0][S%.1f]", b.PlateThickness)
 
@@ -207,7 +286,7 @@ func Bevel(b *gen.BevelData) (name, nestix string) {
 		name = "OSV20"
 		nestix = fmt.Sprintf("[V\\20.0][S%.1f]", b.PlateThickness)
 
-	case -121, -221, -221213, -221214, -221413, -121214:
+	case -131, -118, -121, -221, -221213, -221214, -221413, -121214:
 		name = "OSV25"
 		nestix = fmt.Sprintf("[V\\25.0][S%.1f]", b.PlateThickness)
 
@@ -215,7 +294,7 @@ func Bevel(b *gen.BevelData) (name, nestix string) {
 		name = "OSV35"
 		nestix = fmt.Sprintf("[V\\35.0][S%.1f]", b.PlateThickness)
 
-	case -116, -145, -173, -144, -114, -172:
+	case -148, -116, -145, -173, -144, -114, -172:
 		name = "OSV45"
 		nestix = fmt.Sprintf("[V\\45.0][S%.1f]", b.PlateThickness)
 
@@ -240,6 +319,9 @@ func Bevel(b *gen.BevelData) (name, nestix string) {
 		name = "X25"
 		//nestix = fmt.Sprintf("[X25;%.1f;25][S%.1f]", b.PlateThickness/2.0, b.PlateThickness)
 
+	case -125, 125:
+		name = "C39-P, ПЗ"
+
 	case -107:
 		if b.PlateThickness > 38 {
 			name = "K25-2"
@@ -259,7 +341,7 @@ func Bevel(b *gen.BevelData) (name, nestix string) {
 	case 146, -146, 117, 150:
 		name = "X45"
 
-	case 246, -246, 155, 274, -155, 22, 217:
+	case -224, 246, -246, 155, 274, -155, 22, 217:
 		name = "X50"
 
 	case -348, 348, 393, -393:

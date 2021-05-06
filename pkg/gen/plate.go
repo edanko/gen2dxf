@@ -59,7 +59,6 @@ func readPlate(r io.Reader) *PlateGen {
 
 		switch t {
 		case "TYPE_OF_GENERIC_FILE=LISTED_PROFILE":
-			fmt.Println("[x] found listed profile - skipping")
 			return nil
 
 		case "GENERAL_DATA":

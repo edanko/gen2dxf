@@ -29,7 +29,7 @@ func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {
 		case "BENDING_MARK", "ADDED_CONTOUR", "FACE_PLATE_ALIGNMENT":
 			addMarking(d, md)
 
-		case "FOLDED_FLANGE":
+		case "FOLDED_FLANGE", "HULL_MARK":
 			addMarking(d, md)
 
 		case "ROLL_AXIS":
