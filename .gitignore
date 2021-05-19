@@ -1,3 +1,4 @@
 vendor/
 
-*.exe
+cmd/testread/*.exe
+cmd/testreadProf/*.exe
