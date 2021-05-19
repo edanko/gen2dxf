@@ -115,6 +115,14 @@ func readPlate(r io.Reader) *PlateGen {
 				pi.LabeltextData = append(pi.LabeltextData, l)
 			}
 
+		case "LABELSYMBOL_DATA":
+			l := readLabelsymbolData(s)
+			if pi == nil {
+				g.PartData[len(g.PartData)-1].LabelsymbolData = append(g.PartData[len(g.PartData)-1].LabelsymbolData, l)
+			} else {
+				pi.LabelsymbolData = append(pi.LabelsymbolData, l)
+			}
+
 		case "BURNING_DATA":
 			b := readBurningData(s)
 			if pi == nil {

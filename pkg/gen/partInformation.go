@@ -7,12 +7,13 @@ import (
 )
 
 type PartInformation struct {
-	PartName      string
-	TypeOfWork    string
-	IdleData      []*IdleData
-	MarkingData   []*MarkingData
-	BurningData   []*BurningData
-	LabeltextData []*LabeltextData
+	PartName        string
+	TypeOfWork      string
+	IdleData        []*IdleData
+	MarkingData     []*MarkingData
+	BurningData     []*BurningData
+	LabeltextData   []*LabeltextData
+	LabelsymbolData []*LabelsymbolData
 }
 
 func readPartInformation(s *bufio.Scanner) *PartInformation {

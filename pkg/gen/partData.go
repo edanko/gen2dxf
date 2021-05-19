@@ -65,6 +65,7 @@ type PartData struct {
 	MarkingData         []*MarkingData
 	GeometryData        []*GeometryData
 	LabeltextData       []*LabeltextData
+	LabelsymbolData     []*LabelsymbolData
 	BumpData            []*BumpData
 	EdgeData            []*EdgeData
 }
