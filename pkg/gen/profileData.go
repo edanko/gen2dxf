@@ -9,6 +9,7 @@ import (
 
 type ProfileData struct {
 	Name                string
+	UniversalID         string
 	GeneratedAs         string
 	PosNo               string
 	Mlength             float64
@@ -54,6 +55,7 @@ type ProfileData struct {
 	ChamferHeightTs     float64
 	ChamferHeightOs     float64
 	Grinding            int
+	Milling             int
 	Assembly            string
 	AssemblyHigh        string
 	AssemblyTot         string
@@ -121,6 +123,9 @@ func readProfileData(s *bufio.Scanner) *ProfileData {
 
 		case "NAME":
 			p.Name = l[1]
+
+		case "UNIVERSAL_ID":
+			p.UniversalID = l[1]
 
 		case "GENERATED_AS":
 			p.GeneratedAs = l[1]
@@ -228,6 +233,8 @@ func readProfileData(s *bufio.Scanner) *ProfileData {
 
 		case "GRINDING":
 			p.Grinding, _ = strconv.Atoi(l[1])
+		case "MILLING":
+			p.Milling, _ = strconv.Atoi(l[1])
 
 		case "ASSEMBLY":
 			p.Assembly = l[1]
