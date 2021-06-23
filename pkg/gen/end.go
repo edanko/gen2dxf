@@ -79,7 +79,8 @@ type End struct {
 	BevelVariant             int
 	E                        float64
 	Gap                      float64
-	Chamfer                  float64
+	ChamferTs                float64
+	ChamferOs                float64
 	Alpha                    float64
 	Beta                     float64
 	Nose                     float64
@@ -103,7 +104,8 @@ type End struct {
 	BevelVariantFlange       float64
 	EFlange                  float64
 	GapFlange                float64
-	ChamferFlange            float64
+	ChamferTsFlange          float64
+	ChamferOsFlange          float64
 	AlphaFlange              float64
 	BetaFlange               float64
 	NoseFlange               float64
@@ -127,7 +129,8 @@ type End struct {
 	BevelVariantFlange2      float64
 	EFlange2                 float64
 	GapFlange2               float64
-	ChamferFlange2           float64
+	ChamferTsFlange2         float64
+	ChamferOsFlange2         float64
 	AlphaFlange2             float64
 	BetaFlange2              float64
 	NoseFlange2              float64
@@ -329,8 +332,10 @@ func readEnd(s *bufio.Scanner) *End {
 		case "GAP":
 			e.Gap, _ = strconv.ParseFloat(l[1], 64)
 
-		case "CHAMFER":
-			e.Chamfer, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_TS":
+			e.ChamferTs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_OS":
+			e.ChamferOs, _ = strconv.ParseFloat(l[1], 64)
 
 		case "ALPHA":
 			e.Alpha, _ = strconv.ParseFloat(l[1], 64)
@@ -410,8 +415,10 @@ func readEnd(s *bufio.Scanner) *End {
 		case "GAP_FLANGE":
 			e.GapFlange, _ = strconv.ParseFloat(l[1], 64)
 
-		case "CHAMFER_FLANGE":
-			e.ChamferFlange, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_TS_FLANGE":
+			e.ChamferTsFlange, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_OS_FLANGE":
+			e.ChamferOsFlange, _ = strconv.ParseFloat(l[1], 64)
 
 		case "ALPHA_FLANGE":
 			e.AlphaFlange, _ = strconv.ParseFloat(l[1], 64)
@@ -479,8 +486,10 @@ func readEnd(s *bufio.Scanner) *End {
 		case "GAP_FLANGE2":
 			e.GapFlange2, _ = strconv.ParseFloat(l[1], 64)
 
-		case "CHAMFER_FLANGE2":
-			e.ChamferFlange2, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_TS_FLANGE2":
+			e.ChamferTsFlange2, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_OS_FLANGE2":
+			e.ChamferOsFlange2, _ = strconv.ParseFloat(l[1], 64)
 
 		case "ALPHA_FLANGE2":
 			e.AlphaFlange2, _ = strconv.ParseFloat(l[1], 64)
