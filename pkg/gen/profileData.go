@@ -39,7 +39,8 @@ type ProfileData struct {
 	BevelVariant        int
 	E                   float64
 	Gap                 float64
-	Chamfer             float64
+	ChamferTs           float64
+	ChamferOs           float64
 	Alpha               float64
 	Beta                float64
 	Nose                float64
@@ -200,8 +201,10 @@ func readProfileData(s *bufio.Scanner) *ProfileData {
 			p.E, _ = strconv.ParseFloat(l[1], 64)
 		case "GAP":
 			p.Gap, _ = strconv.ParseFloat(l[1], 64)
-		case "CHAMFER":
-			p.Chamfer, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_TS":
+			p.ChamferTs, _ = strconv.ParseFloat(l[1], 64)
+		case "CHAMFER_OS":
+			p.ChamferOs, _ = strconv.ParseFloat(l[1], 64)
 		case "ALPHA":
 			p.Alpha, _ = strconv.ParseFloat(l[1], 64)
 		case "BETA":
