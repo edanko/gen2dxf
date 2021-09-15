@@ -172,7 +172,7 @@ func addBevel(d *drawing.Drawing, c *gen.Contour, from, to int) {
 	x, y = math2.SegmentMidPoint(c.Segments[longestIdx])
 	rotation = math2.ToDeg(math2.SegmentAngle(c.Segments[longestIdx]))
 
-	bevelText, bevelNestix := BevelGeneric(c.Segments[from].BevelData)
+	bevelText, bevelNestix := BevelNestix(c.Segments[from].BevelData)
 
 	// nestix
 	n := entity.NewText()
