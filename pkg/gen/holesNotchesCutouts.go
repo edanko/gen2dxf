@@ -16,6 +16,7 @@ type HolesNotchesCutouts struct {
 	Rotation          float64
 	Mirror            int
 	Name              string
+	Comment           string
 	DistLeft          float64
 	Contour           *Contour
 }
@@ -55,6 +56,9 @@ func readHolesNotchesCutouts(s *bufio.Scanner) *HolesNotchesCutouts {
 
 		case "NAME":
 			h.Name = l[1]
+
+		case "COMMENT":
+			h.Comment = l[1]
 
 		case "DIST_LEFT":
 			h.DistLeft, _ = strconv.ParseFloat(l[1], 64)
