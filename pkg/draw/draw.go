@@ -24,7 +24,7 @@ const (
 	NestixBevelAttrTextHeight   = 1
 	NestixAttrTextHeight        = 5.0
 	AddAngleLength              = 10
-	OrderString                 = "056001"
+	OrderString                 = "056"
 	AttrSpacing                 = 10
 	AttrColor                   = color.White
 	DirectionTextColor          = color.Cyan
@@ -120,7 +120,7 @@ func PlateToDXF(g *gen.PlateGen, w *wcog.WCOG) error {
 			addStringData(d, p.StringData)
 			//addBumpData(d, p.BumpData)
 			//addEdgeData(d, p.EdgeData)
-			addLabeltextData(d, p.LabeltextData)
+			//addLabeltextData(d, p.LabeltextData)
 			addGeometryData(d, p.GeometryData)
 
 			err := d.SaveAs(out)
