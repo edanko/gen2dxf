@@ -3,9 +3,9 @@ package wcog
 import (
 	"bufio"
 	"encoding/csv"
+	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strings"
 	"sync"
@@ -48,13 +48,12 @@ func (w *WCOG) addOrInc(block, posno string) {
 	}
 }
 
-func ReadWCOGs(paths []string) *WCOG {
+func ReadWCOGs(paths []string) (*WCOG, error) {
 	m := &WCOG{
 		v: make([]*WCOGRow, 0),
 	}
 
 	for _, path := range paths {
-
 		f, err := os.Open(path)
 		if err != nil {
 			fmt.Println("[!] failed to open", path)
@@ -68,32 +67,30 @@ func ReadWCOGs(paths []string) *WCOG {
 		// header
 		_, err = r.Read()
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 		_, err = r.Read()
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 
 		for {
 			rec, err := r.Read()
 
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				break
 			} else if err != nil {
-				log.Fatal(err)
+				return nil, err
 			}
 
 			block := rec[6]
 			posno := filterPos(rec[0])
 
 			m.addOrInc(block, posno)
-
 		}
-
 	}
 
-	return m
+	return m, nil
 }
 
 func (w *WCOG) GetQuantity(block, posno string) int {
@@ -113,10 +110,10 @@ func (w *WCOG) GetQuantity(block, posno string) int {
 func filterPos(s string) string {
 	posSplit := strings.Split(s, "-")
 	posno := posSplit[len(posSplit)-1]
-	posno = strings.Replace(posno, "P", "", -1)
-	posno = strings.Replace(posno, "S", "", -1)
-	posno = strings.Replace(posno, "B", "", -1)
-	posno = strings.Replace(posno, "C", "", -1)
+	posno = strings.ReplaceAll(posno, "P", "")
+	posno = strings.ReplaceAll(posno, "S", "")
+	posno = strings.ReplaceAll(posno, "B", "")
+	posno = strings.ReplaceAll(posno, "C", "")
 
 	return posno
 }

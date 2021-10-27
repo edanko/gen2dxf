@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-
 	var wcogs []string
 	err := filepath.Walk(".", func(path string, info os.FileInfo, e error) error {
 		if e != nil {
@@ -56,7 +55,10 @@ func main() {
 		os.Exit(0)
 	}
 
-	wcog := wcog.ReadWCOGs(wcogs)
+	wcog, err := wcog.ReadWCOGs(wcogs)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	l := len(gens)
 

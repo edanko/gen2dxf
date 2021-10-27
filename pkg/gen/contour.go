@@ -48,7 +48,6 @@ func readContour(s *bufio.Scanner) *Contour {
 
 		case "BEVEL_DATA":
 			currentBevel = readBevelData(s)
-			//con.BevelData = readBevelData(s)
 
 		case "EXCESS_DATA":
 			con.ExcessData = readExcessData(s)

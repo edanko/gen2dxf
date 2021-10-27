@@ -54,22 +54,14 @@ func main() {
 		os.Exit(0)
 	}
 
-	//wcog := wcog.ReadWCOGs(wcogs)
-
 	l := len(gens)
 
 	for i, p := range gens {
-
 		fmt.Printf("[*] %d/%d...\n", i+1, l)
 
 		g := gen.ParseProfileFile(p)
 
 		_ = g
-		//err = draw.PlateToDXF(g, wcog)
-		//if err != nil {
-		//	log.Fatalln(err)
-		//}
-
 	}
 
 }

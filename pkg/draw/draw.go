@@ -114,13 +114,13 @@ func PlateToDXF(g *gen.PlateGen, w *wcog.WCOG) error {
 			if p.PartArea > MinPartAreaForDirectionMark {
 				addDirection(d, p)
 			}
-			//addIdleData(d, p.IdleData)
+			// addIdleData(d, p.IdleData)
 			addBurningData(d, p.BurningData)
 			addMarkingData(d, p.MarkingData)
 			addStringData(d, p.StringData)
-			//addBumpData(d, p.BumpData)
-			//addEdgeData(d, p.EdgeData)
-			//addLabeltextData(d, p.LabeltextData)
+			// addBumpData(d, p.BumpData)
+			// addEdgeData(d, p.EdgeData)
+			// addLabeltextData(d, p.LabeltextData)
 			addGeometryData(d, p.GeometryData)
 
 			err := d.SaveAs(out)
@@ -367,10 +367,10 @@ func getMarkingTextPosition(c *gen.Contour) (x float64, y float64, rot float64) 
 func filterPos(pos string) string {
 	ss := strings.Split(pos, "-")
 	s := ss[len(ss)-1]
-	s = strings.Replace(s, "P", "", -1)
-	s = strings.Replace(s, "S", "", -1)
-	s = strings.Replace(s, "B", "", -1)
-	s = strings.Replace(s, "C", "", -1)
+	s = strings.ReplaceAll(s, "P", "")
+	s = strings.ReplaceAll(s, "S", "")
+	s = strings.ReplaceAll(s, "B", "")
+	s = strings.ReplaceAll(s, "C", "")
 
 	return s
 }

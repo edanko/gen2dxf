@@ -23,7 +23,7 @@ func addString(d *drawing.Drawing, sd *gen.StringData) {
 	case "DIR_RIGHT":
 	case "DIR_TOP":
 	case "THICKNESS_&_QUALITY":
-	case "EXCESS_LIMIT": //same as excess_geometry
+	case "EXCESS_LIMIT": // same as excess_geometry
 	case "PART_NAME":
 	case "POSNO":
 	case "BEVEL_ANGLE":
