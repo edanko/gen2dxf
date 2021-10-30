@@ -3,10 +3,11 @@ package draw
 import (
 	"math"
 
+	"gen2dxf/pkg/gen"
+	"gen2dxf/pkg/math2"
+
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
-	"github.com/edanko/gen2dxf/pkg/gen"
-	"github.com/edanko/gen2dxf/pkg/math2"
 )
 
 func addEdgeData(d *drawing.Drawing, gds []*gen.EdgeData) {

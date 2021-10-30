@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/edanko/gen2dxf/pkg/gen"
-	"github.com/edanko/gen2dxf/pkg/math2"
+	"gen2dxf/pkg/gen"
+	"gen2dxf/pkg/math2"
 )
 
 func BevelNestix(b *gen.BevelData) (name, nestix string) {

@@ -1,8 +1,9 @@
 package draw
 
 import (
+	"gen2dxf/pkg/gen"
+
 	"github.com/edanko/dxf/drawing"
-	"github.com/edanko/gen2dxf/pkg/gen"
 )
 
 func addIdleData(d *drawing.Drawing, ids []*gen.IdleData) {

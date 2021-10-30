@@ -3,7 +3,7 @@ package math2
 import (
 	"math"
 
-	"github.com/edanko/gen2dxf/pkg/gen"
+	"gen2dxf/pkg/gen"
 )
 
 func LineLength(sx, sy, ex, ey float64) float64 {

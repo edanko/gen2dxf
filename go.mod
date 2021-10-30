@@ -1,4 +1,4 @@
-module github.com/edanko/gen2dxf
+module gen2dxf
 
 go 1.17
 

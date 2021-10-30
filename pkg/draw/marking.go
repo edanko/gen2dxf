@@ -3,8 +3,9 @@ package draw
 import (
 	"fmt"
 
+	"gen2dxf/pkg/gen"
+
 	"github.com/edanko/dxf/drawing"
-	"github.com/edanko/gen2dxf/pkg/gen"
 )
 
 func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {

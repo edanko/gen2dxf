@@ -9,12 +9,13 @@ import (
 	"strings"
 	"time"
 
+	"gen2dxf/pkg/gen"
+	"gen2dxf/pkg/math2"
+	"gen2dxf/pkg/wcog"
+
 	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
-	"github.com/edanko/gen2dxf/pkg/gen"
-	"github.com/edanko/gen2dxf/pkg/math2"
-	"github.com/edanko/gen2dxf/pkg/wcog"
 )
 
 const (

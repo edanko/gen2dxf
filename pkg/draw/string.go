@@ -3,9 +3,10 @@ package draw
 import (
 	"fmt"
 
+	"gen2dxf/pkg/gen"
+
 	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
-	"github.com/edanko/gen2dxf/pkg/gen"
 )
 
 func addStringData(d *drawing.Drawing, sds []*gen.StringData) {

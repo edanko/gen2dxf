@@ -1,9 +1,10 @@
 package draw
 
 import (
+	"gen2dxf/pkg/gen"
+
 	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
-	"github.com/edanko/gen2dxf/pkg/gen"
 )
 
 func addDirection(d *drawing.Drawing, p *gen.PartData) {

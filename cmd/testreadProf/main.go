@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/edanko/gen2dxf/pkg/gen"
+	"gen2dxf/pkg/gen"
 )
 
 func main() {

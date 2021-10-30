@@ -1,9 +1,10 @@
 package draw
 
 import (
+	"gen2dxf/pkg/gen"
+
 	"github.com/edanko/dxf/color"
 	"github.com/edanko/dxf/drawing"
-	"github.com/edanko/gen2dxf/pkg/gen"
 )
 
 func addBurningData(d *drawing.Drawing, bds []*gen.BurningData) {
