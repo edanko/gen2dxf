@@ -4,11 +4,12 @@ import (
 	"bufio"
 	"encoding/csv"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"strings"
 	"sync"
+
+	"golang.org/x/sync/errgroup"
 )
 
 type WCOGRow struct {
@@ -19,11 +20,10 @@ type WCOGRow struct {
 
 type WCOG struct {
 	v []*WCOGRow
-	sync.Mutex
+	sync.RWMutex
 }
 
 func (w *WCOG) addOrInc(block, posno string) {
-
 	w.Lock()
 	defer w.Unlock()
 
@@ -53,41 +53,50 @@ func ReadWCOGs(paths []string) (*WCOG, error) {
 		v: make([]*WCOGRow, 0),
 	}
 
+	g := new(errgroup.Group)
+
 	for _, path := range paths {
-		f, err := os.Open(path)
-		if err != nil {
-			fmt.Println("[!] failed to open", path)
-			continue
-		}
-		defer f.Close()
+		path := path
+		g.Go(func() error {
+			f, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
 
-		r := csv.NewReader(bufio.NewReader(f))
-		r.FieldsPerRecord = -1
+			r := csv.NewReader(bufio.NewReader(f))
+			r.FieldsPerRecord = -1
 
-		// header
-		_, err = r.Read()
-		if err != nil {
-			return nil, err
-		}
-		_, err = r.Read()
-		if err != nil {
-			return nil, err
-		}
-
-		for {
-			rec, err := r.Read()
-
-			if errors.Is(err, io.EOF) {
-				break
-			} else if err != nil {
-				return nil, err
+			// header
+			_, err = r.Read()
+			if err != nil {
+				return err
+			}
+			_, err = r.Read()
+			if err != nil {
+				return err
 			}
 
-			block := rec[6]
-			posno := filterPos(rec[0])
+			for {
+				rec, err := r.Read()
 
-			m.addOrInc(block, posno)
-		}
+				if errors.Is(err, io.EOF) {
+					break
+				} else if err != nil {
+					return err
+				}
+
+				block := rec[6]
+				posno := filterPos(rec[0])
+
+				m.addOrInc(block, posno)
+			}
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		return nil, err
 	}
 
 	return m, nil
@@ -96,14 +105,13 @@ func ReadWCOGs(paths []string) (*WCOG, error) {
 func (w *WCOG) GetQuantity(block, posno string) int {
 	for _, v := range w.v {
 		if v.Block == block && v.PosNo == posno {
-			w.Lock()
-			defer w.Unlock()
+			w.RLock()
+			defer w.RUnlock()
 
 			return v.Count
 		}
 	}
 
-	fmt.Println("[x] block", block, "and pos", posno, "not found, returning 1")
 	return 1
 }
 
