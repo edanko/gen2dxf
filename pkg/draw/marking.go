@@ -39,6 +39,12 @@ func addMarkingData(d *drawing.Drawing, mds []*gen.MarkingData) {
 		case "LONGITUDINAL":
 			addMarkingWithText(d, md)
 
+		case "CORNER_GSD", "CL_GSD":
+			addMarking(d, md)
+
+		case "PANEL_GSD", "STIFFENER_GSD":
+			addMarkingWithText(d, md)
+
 		case "":
 			addMarking(d, md)
 
