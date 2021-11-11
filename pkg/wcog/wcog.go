@@ -1,118 +1,50 @@
 package wcog
 
 import (
-	"bufio"
 	"encoding/csv"
 	"errors"
 	"io"
-	"os"
 	"strings"
 	"sync"
-
-	"golang.org/x/sync/errgroup"
 )
 
-type WCOGRow struct {
-	Block string
-	PosNo string
-	Count int
-}
+func ReadWCOG(r io.Reader, m *sync.Map) error {
+	c := csv.NewReader(r)
+	c.FieldsPerRecord = -1
 
-type WCOG struct {
-	v []*WCOGRow
-	sync.RWMutex
-}
+	// header
+	_, err := c.Read()
+	if err != nil {
+		return err
+	}
+	_, err = c.Read()
+	if err != nil {
+		return err
+	}
 
-func (w *WCOG) addOrInc(block, posno string) {
-	w.Lock()
-	defer w.Unlock()
+	for {
+		rec, err := c.Read()
 
-	found := false
-
-	for _, v := range w.v {
-		if v.Block == block && v.PosNo == posno {
-			found = true
-			v.Count++
+		if errors.Is(err, io.EOF) {
 			break
-		}
-	}
-
-	if !found {
-		cur := &WCOGRow{
-			Block: block,
-			PosNo: posno,
-			Count: 1,
+		} else if err != nil {
+			return err
 		}
 
-		w.v = append(w.v, cur)
-	}
-}
+		block := rec[6]
+		posno := filterPos(rec[0])
 
-func ReadWCOGs(paths []string) (*WCOG, error) {
-	m := &WCOG{
-		v: make([]*WCOGRow, 0),
-	}
-
-	g := new(errgroup.Group)
-
-	for _, path := range paths {
-		path := path
-		g.Go(func() error {
-			f, err := os.Open(path)
-			if err != nil {
-				return err
+		val, exists := m.Load(block + posno)
+		if exists {
+			if n, ok := val.(uint); ok {
+				n++
+				m.Store(block+posno, n)
 			}
-			defer f.Close()
-
-			r := csv.NewReader(bufio.NewReader(f))
-			r.FieldsPerRecord = -1
-
-			// header
-			_, err = r.Read()
-			if err != nil {
-				return err
-			}
-			_, err = r.Read()
-			if err != nil {
-				return err
-			}
-
-			for {
-				rec, err := r.Read()
-
-				if errors.Is(err, io.EOF) {
-					break
-				} else if err != nil {
-					return err
-				}
-
-				block := rec[6]
-				posno := filterPos(rec[0])
-
-				m.addOrInc(block, posno)
-			}
-			return nil
-		})
-	}
-
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
-
-	return m, nil
-}
-
-func (w *WCOG) GetQuantity(block, posno string) int {
-	for _, v := range w.v {
-		if v.Block == block && v.PosNo == posno {
-			w.RLock()
-			defer w.RUnlock()
-
-			return v.Count
+		} else {
+			m.Store(block+posno, uint(1))
 		}
 	}
-
-	return 1
+	return nil
 }
 
 func filterPos(s string) string {
