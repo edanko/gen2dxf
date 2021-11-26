@@ -21,27 +21,28 @@ func BevelNestix(b *gen.BevelData) (name, nestix string) {
 		t = b.PlateThickness - b.E
 	}
 
-	if b.AngleTS != 0 && b.AngleOS == 0 && (t-b.DepthTS <= 2 || b.DepthTS == 0) {
+	switch {
+	case b.AngleTS != 0 && b.AngleOS == 0 && (t-b.DepthTS <= 2 || b.DepthTS == 0):
 
 		name = fmt.Sprintf("TSV%g", b.AngleTS)
 		nestix = fmt.Sprintf("[V/%g][S%.1f]", b.AngleTS, t)
 
-	} else if b.AngleOS != 0 && b.AngleTS == 0 && (t-b.DepthOS <= 2 || b.DepthOS == 0) {
+	case b.AngleOS != 0 && b.AngleTS == 0 && (t-b.DepthOS <= 2 || b.DepthOS == 0):
 
 		name = fmt.Sprintf("OSV%g", b.AngleOS)
 		nestix = fmt.Sprintf("[V\\%g][S%.1f]", b.AngleOS, t)
 
-	} else if b.AngleTS != 0 && b.AngleOS == 0 && t-b.DepthTS > 2 {
+	case b.AngleTS != 0 && b.AngleOS == 0 && t-b.DepthTS > 2:
 
 		name = fmt.Sprintf("TSY%g/%g", b.AngleTS, b.DepthTS)
 		nestix = fmt.Sprintf("[Y/%g;%g][S%.1f]", b.AngleTS, b.DepthTS, t)
 
-	} else if b.AngleOS != 0 && b.AngleTS == 0 && t-b.DepthOS > 2 {
+	case b.AngleOS != 0 && b.AngleTS == 0 && t-b.DepthOS > 2:
 
 		name = fmt.Sprintf("OSY%g/%g", b.AngleOS, t-b.DepthOS)
 		nestix = fmt.Sprintf("[Y\\%g;%g][S%.1f]", b.AngleOS, t-b.DepthOS, t)
 
-	} else if b.AngleTS != 0 && b.AngleOS != 0 {
+	case b.AngleTS != 0 && b.AngleOS != 0:
 
 		if b.PlateThickness-(b.DepthTS+b.DepthOS) <= 2 {
 
