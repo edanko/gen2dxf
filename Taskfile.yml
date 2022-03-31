@@ -1,0 +1,23 @@
+version: "3"
+
+tasks:
+  run:
+    desc: Run the app
+    dir: cmd/gen2dxf
+    cmds:
+      - go run .
+
+  build:
+    desc: Build the app
+    cmds:
+      - go build -trimpath -ldflags "-s -w" ./cmd/gen2dxf
+
+  lint:
+    desc: Run golangci-lint
+    cmds:
+      - golangci-lint run
+
+  deps:
+    desc: Upgrade dependencies
+    cmds:
+      - go get -u all && go mod tidy
