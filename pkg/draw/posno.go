@@ -1,25 +1,25 @@
 package draw
 
 import (
-	"gen2dxf/pkg/gen"
+	"fmt"
 
 	"github.com/edanko/dxf/color"
-	"github.com/edanko/dxf/drawing"
 	"github.com/edanko/dxf/entity"
+	"github.com/edanko/gen"
 )
 
-func addPosNo(d *drawing.Drawing, p *gen.PartData) {
-	id := OrderString + "-" + p.BlockNo + "-" + p.PosNo
+func (d *Drawer) addPosNo(p *gen.PartData) {
+	text := fmt.Sprintf("%s-%s-%s", p.ShipNo, p.BlockNo, p.PosNo)
 
-	if p.Mirrored == 1 {
-		id += "(m)"
+	if p.Mirrored {
+		text += "(m)"
 	}
 
 	t := entity.NewText()
-	t.Value = id
-	t.Coord1 = []float64{p.PartCogU, p.PartCogV, 0}
-	t.Height = float64(PosNoTextHeight)
+	t.Value = text
+	t.Coord1 = []float64{p.PartCog.X, p.PartCog.Y, 0}
+	t.Height = posNoTextHeight
 	t.SetColor(color.Red)
 	t.Anchor(entity.CENTER_TOP)
-	d.AddEntity(t)
+	d.drawing.AddEntity(t)
 }

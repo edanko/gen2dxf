@@ -1,12 +1,10 @@
 package draw
 
 import (
-	"gen2dxf/pkg/gen"
-
-	"github.com/edanko/dxf/drawing"
+	"github.com/edanko/gen"
 )
 
-func addGeometryData(d *drawing.Drawing, gds []*gen.GeometryData) {
+func (d *Drawer) addGeometryData(gds []*gen.GeometryData) {
 	if gds == nil {
 		return
 	}
@@ -14,10 +12,6 @@ func addGeometryData(d *drawing.Drawing, gds []*gen.GeometryData) {
 		if gd.Type == "BEVEL_SYMBOL" {
 			continue
 		}
-		addGeometry(d, gd)
+		d.drawContour(gd.Contour, geometryColor)
 	}
-}
-
-func addGeometry(d *drawing.Drawing, gd *gen.GeometryData) {
-	drawContour(d, gd.Contour, GeometryColor)
 }

@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"math"
 
-	"gen2dxf/pkg/gen"
-	"gen2dxf/pkg/math2"
+	"github.com/edanko/gen2dxf/pkg/math2"
+
+	"github.com/edanko/gen"
 )
 
-func BevelNestix(b *gen.BevelData) (name, nestix string) {
+func parseBevel(b *gen.BevelData) (name, nestix string) {
 	if b == nil {
 		return "", ""
 	}

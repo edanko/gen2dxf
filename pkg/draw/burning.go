@@ -1,21 +1,14 @@
 package draw
 
 import (
-	"gen2dxf/pkg/gen"
-
-	"github.com/edanko/dxf/color"
-	"github.com/edanko/dxf/drawing"
+	"github.com/edanko/gen"
 )
 
-func addBurningData(d *drawing.Drawing, bds []*gen.BurningData) {
+func (d *Drawer) addBurningData(bds []*gen.BurningData) {
 	if bds == nil {
 		return
 	}
 	for _, bd := range bds {
-		addBurning(d, bd)
+		d.drawBurningContour(bd.Contour, burningColor)
 	}
-}
-
-func addBurning(d *drawing.Drawing, bd *gen.BurningData) {
-	drawBurningContour(d, bd.Contour, color.Green)
 }
