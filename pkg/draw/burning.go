@@ -4,7 +4,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func (d *Drawer) addBurningData(bds []*gen.BurningData) {
+func (d *Drawer) addBurningData(bds []gen.BurningData) {
 	if bds == nil {
 		return
 	}

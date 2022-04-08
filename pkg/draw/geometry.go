@@ -4,7 +4,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func (d *Drawer) addGeometryData(gds []*gen.GeometryData) {
+func (d *Drawer) addGeometryData(gds []gen.GeometryData) {
 	if gds == nil {
 		return
 	}

@@ -14,7 +14,7 @@ func Test(t *testing.T) {
 
 	t.Run("keys test", func(t *testing.T) {
 		key := "test"
-		value := &gen.PartData{Name: "name"}
+		value := gen.PartData{Name: "name"}
 
 		store.Store(key, value)
 
@@ -25,7 +25,7 @@ func Test(t *testing.T) {
 
 	t.Run("store test", func(t *testing.T) {
 		key := "test"
-		value := &gen.PartData{Name: "name"}
+		value := gen.PartData{Name: "name"}
 
 		store.Store(key, value)
 
@@ -34,7 +34,7 @@ func Test(t *testing.T) {
 
 	t.Run("load test", func(t *testing.T) {
 		key := "test"
-		value := &gen.PartData{Name: "name"}
+		value := gen.PartData{Name: "name"}
 
 		store.Store(key, value)
 
@@ -46,7 +46,7 @@ func Test(t *testing.T) {
 
 	t.Run("inc test", func(t *testing.T) {
 		key := "test"
-		value := &gen.PartData{Name: "name"}
+		value := gen.PartData{Name: "name"}
 
 		store.Store(key, value)
 		store.Inc(key)

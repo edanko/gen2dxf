@@ -8,13 +8,13 @@ import (
 
 func New() *Store {
 	return &Store{
-		m: make(map[string]*gen.PartData),
+		m: make(map[string]gen.PartData),
 	}
 }
 
 type Store struct {
 	mx sync.RWMutex
-	m  map[string]*gen.PartData
+	m  map[string]gen.PartData
 }
 
 func (c *Store) Keys() []string {
@@ -30,14 +30,14 @@ func (c *Store) Keys() []string {
 	return res
 }
 
-func (c *Store) Load(key string) (*gen.PartData, bool) {
+func (c *Store) Load(key string) (gen.PartData, bool) {
 	c.mx.RLock()
 	defer c.mx.RUnlock()
 	val, ok := c.m[key]
 	return val, ok
 }
 
-func (c *Store) Store(key string, value *gen.PartData) {
+func (c *Store) Store(key string, value gen.PartData) {
 	c.mx.Lock()
 	defer c.mx.Unlock()
 	c.m[key] = value
@@ -46,5 +46,8 @@ func (c *Store) Store(key string, value *gen.PartData) {
 func (c *Store) Inc(key string) {
 	c.mx.Lock()
 	defer c.mx.Unlock()
-	c.m[key].Quantity++
+	if entity, ok := c.m[key]; ok {
+		entity.Quantity++
+		c.m[key] = entity
+	}
 }

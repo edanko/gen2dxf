@@ -42,7 +42,7 @@ func NewDrawer(writer io.Writer) *Drawer {
 	}
 }
 
-func (d *Drawer) PartToDXF(p *gen.PartData) error {
+func (d *Drawer) PartToDXF(p gen.PartData) error {
 	var tsLength, osLength float64
 
 	for _, m := range p.MarkingData {
@@ -97,7 +97,7 @@ func (d *Drawer) PartToDXF(p *gen.PartData) error {
 	return nil
 }
 
-func (d *Drawer) drawContour(c *gen.Contour, cl color.ColorNumber) {
+func (d *Drawer) drawContour(c gen.Contour, cl color.ColorNumber) {
 	p := entity.NewLwPolyline()
 
 	b := math2.SegmentBulge(c.Segments[0])
@@ -116,7 +116,7 @@ func (d *Drawer) drawContour(c *gen.Contour, cl color.ColorNumber) {
 	d.drawing.AddEntity(p)
 }
 
-func (d *Drawer) addBevel(c *gen.Contour, from, to int) {
+func (d *Drawer) addBevel(c gen.Contour, from, to int) {
 	longestIdx := from
 	longestLen := math2.SegmentLength(c.Segments[from])
 
@@ -174,7 +174,7 @@ func (d *Drawer) addBevel(c *gen.Contour, from, to int) {
 	d.drawing.AddEntity(t)
 }
 
-func (d *Drawer) drawBurningContour(c *gen.Contour, cl color.ColorNumber) {
+func (d *Drawer) drawBurningContour(c gen.Contour, cl color.ColorNumber) {
 	from := 0
 	to := 0
 
@@ -213,7 +213,7 @@ func (d *Drawer) drawBurningContour(c *gen.Contour, cl color.ColorNumber) {
 	}
 }
 
-func (d *Drawer) drawMarkingText(md *gen.MarkingData, color color.ColorNumber) {
+func (d *Drawer) drawMarkingText(md gen.MarkingData, color color.ColorNumber) {
 	x, y, rot := getMarkingTextPosition(md.Contour)
 
 	if strings.Contains(md.MarkingName, "ROLL AXIS") {
@@ -249,7 +249,7 @@ func (d *Drawer) drawText(x, y, height, rotation float64, text string, color col
 	d.drawing.AddEntity(t)
 }
 
-func getMarkingTextPosition(c *gen.Contour) (x float64, y float64, rot float64) {
+func getMarkingTextPosition(c gen.Contour) (x float64, y float64, rot float64) {
 	if len(c.Segments) > 1 {
 
 		segmentsCount := len(c.Segments) - 1

@@ -7,7 +7,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func LineLength(start, end *gen.Point) float64 {
+func LineLength(start, end gen.Point) float64 {
 	return math.Hypot(start.X-end.X, start.Y-end.Y)
 }
 
@@ -15,7 +15,7 @@ func ArcLength(sweep, r float64) float64 {
 	return r * math.Abs(sweep)
 }
 
-func SegmentLength(s *gen.Segment) float64 {
+func SegmentLength(s gen.Segment) float64 {
 	if s.Radius != 0 {
 		return ArcLength(s.Sweep, s.Radius)
 	}
@@ -30,7 +30,7 @@ func ToDeg(rad float64) float64 {
 	return rad * 180.0 / math.Pi
 }
 
-func SegmentBulge(s *gen.Segment) float64 {
+func SegmentBulge(s gen.Segment) float64 {
 	return Bulge(s.Radius, s.Amp, s.Sweep)
 }
 
@@ -55,18 +55,18 @@ func AddAngle(x, y, angle, length float64) (float64, float64) {
 	return newX, newY
 }
 
-func Angle(start, end *gen.Point) float64 {
+func Angle(start, end gen.Point) float64 {
 	x := end.X - start.X
 	y := end.Y - start.Y
 
 	return math.Atan2(y, x)
 }
 
-func SegmentAngle(s *gen.Segment) float64 {
+func SegmentAngle(s gen.Segment) float64 {
 	return Angle(s.Start, s.End)
 }
 
-func SegmentMidPoint(s *gen.Segment) (x float64, y float64) {
+func SegmentMidPoint(s gen.Segment) (x float64, y float64) {
 	if s.Radius != 0.0 {
 		x, y = ArcMidPoint(s.Start, s.End, s.Origin, s.Radius)
 	} else {
@@ -75,7 +75,7 @@ func SegmentMidPoint(s *gen.Segment) (x float64, y float64) {
 	return
 }
 
-func MidPoint(start, end, center *gen.Point, radius float64) (x float64, y float64) {
+func MidPoint(start, end, center gen.Point, radius float64) (x float64, y float64) {
 	if radius != 0.0 {
 		x, y = ArcMidPoint(start, end, center, radius)
 	} else {
@@ -84,14 +84,14 @@ func MidPoint(start, end, center *gen.Point, radius float64) (x float64, y float
 	return
 }
 
-func LineMidPoint(start, end *gen.Point) (float64, float64) {
+func LineMidPoint(start, end gen.Point) (float64, float64) {
 	x := start.X + ((end.X - start.X) / 2.0)
 	y := start.Y + ((end.Y - start.Y) / 2.0)
 
 	return x, y
 }
 
-func ArcMidPoint(start, end, center *gen.Point, radius float64) (float64, float64) {
+func ArcMidPoint(start, end, center gen.Point, radius float64) (float64, float64) {
 	a1 := Angle(center, start)
 	a2 := Angle(center, end)
 
@@ -103,7 +103,7 @@ func ArcMidPoint(start, end, center *gen.Point, radius float64) (float64, float6
 	return newx, newy
 }
 
-func IsClockwise(c *gen.Contour) bool {
+func IsClockwise(c gen.Contour) bool {
 	var sum float64
 
 	for _, s := range c.Segments {

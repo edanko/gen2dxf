@@ -6,7 +6,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func (d *Drawer) addMarkingData(mds []*gen.MarkingData) {
+func (d *Drawer) addMarkingData(mds []gen.MarkingData) {
 	if mds == nil {
 		return
 	}
@@ -43,7 +43,7 @@ func (d *Drawer) addMarkingData(mds []*gen.MarkingData) {
 	}
 }
 
-func (d *Drawer) addMarking(md *gen.MarkingData) {
+func (d *Drawer) addMarking(md gen.MarkingData) {
 	switch md.MarkingSide {
 	case "TS":
 		d.drawContour(md.Contour, markingTSColor)
@@ -57,7 +57,7 @@ func (d *Drawer) addMarking(md *gen.MarkingData) {
 	}
 }
 
-func (d *Drawer) addMarkingWithText(md *gen.MarkingData) {
+func (d *Drawer) addMarkingWithText(md gen.MarkingData) {
 	switch md.MarkingSide {
 	case "TS":
 		d.drawContour(md.Contour, markingTSColor)

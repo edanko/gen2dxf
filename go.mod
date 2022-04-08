@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/edanko/dxf v0.0.0-20211227163716-aa337fc1c258
-	github.com/edanko/gen v0.0.0-20220331181817-381f1332deca
+	github.com/edanko/gen v0.0.0-20220407231735-0fa96e9fb8c4
 	github.com/muesli/coral v1.0.0
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/testify v1.7.1

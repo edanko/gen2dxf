@@ -8,7 +8,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func (d *Drawer) addPosNo(p *gen.PartData) {
+func (d *Drawer) addPosNo(p gen.PartData) {
 	text := fmt.Sprintf("%s-%s-%s", p.ShipNo, p.BlockNo, p.PosNo)
 
 	if p.Mirrored {

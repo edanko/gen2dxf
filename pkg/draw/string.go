@@ -5,7 +5,7 @@ import (
 	"github.com/edanko/gen"
 )
 
-func (d *Drawer) addStringData(sds []*gen.StringData) {
+func (d *Drawer) addStringData(sds []gen.StringData) {
 	if sds == nil {
 		return
 	}

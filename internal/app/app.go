@@ -40,7 +40,7 @@ func New(writer io.Writer) *App {
 
 type result struct {
 	key  string
-	part *gen.PartData
+	part gen.PartData
 }
 
 func (a *App) Convert(ctx context.Context, source fs.FS) error {
