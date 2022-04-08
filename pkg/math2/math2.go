@@ -42,9 +42,9 @@ func Bulge(r, amp, sweep float64) float64 {
 			return -bulge
 		}
 		return bulge
-	} else {
-		return 0
 	}
+
+	return 0
 }
 
 func AddAngle(x, y, angle, length float64) (float64, float64) {

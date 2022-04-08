@@ -10,8 +10,7 @@ func (d *Drawer) addStringData(sds []*gen.StringData) {
 		return
 	}
 	for _, sd := range sds {
-		switch sd.Type {
-		case "EXCESS_GEOMETRY":
+		if sd.Type == "EXCESS_GEOMETRY" {
 			d.drawText(sd.Pos.X, sd.Pos.Y, 25, sd.Angle, sd.String, color.Red)
 		}
 	}

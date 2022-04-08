@@ -73,9 +73,13 @@ func (a *App) Convert(ctx context.Context, source fs.FS) error {
 				if err != nil {
 					return err
 				}
-				defer f.Close()
 
 				partMap := gen.ReadPlate(f)
+				err = f.Close()
+				if err != nil {
+					return err
+				}
+
 				if g == nil {
 					return nil
 				}
@@ -91,7 +95,7 @@ func (a *App) Convert(ctx context.Context, source fs.FS) error {
 		})
 	}
 	go func() {
-		g.Wait()
+		_ = g.Wait()
 		close(c)
 	}()
 
