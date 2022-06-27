@@ -8,7 +8,7 @@ require (
 	github.com/muesli/coral v1.0.0
 	github.com/spf13/viper v1.11.0
 	github.com/stretchr/testify v1.7.5
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 )
 
 require (
