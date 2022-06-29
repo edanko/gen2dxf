@@ -4,10 +4,10 @@ go 1.18
 
 require (
 	github.com/edanko/dxf v0.0.0-20211227163716-aa337fc1c258
-	github.com/edanko/gen v0.0.0-20220407231735-0fa96e9fb8c4
+	github.com/edanko/gen v0.0.0-20220629215839-ca02872e69cd
 	github.com/muesli/coral v1.0.0
 	github.com/spf13/viper v1.12.0
-	github.com/stretchr/testify v1.7.5
+	github.com/stretchr/testify v1.8.0
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 )
 
