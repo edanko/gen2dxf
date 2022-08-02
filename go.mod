@@ -1,6 +1,6 @@
 module github.com/edanko/gen2dxf
 
-go 1.18
+go 1.19
 
 require (
 	github.com/edanko/dxf v0.0.0-20211227163716-aa337fc1c258
