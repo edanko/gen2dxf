@@ -3,7 +3,7 @@ module github.com/edanko/gen2dxf
 go 1.18
 
 require (
-	github.com/edanko/dxf v0.0.0-20211227163716-aa337fc1c258
+	github.com/edanko/dxf v1.0.0
 	github.com/edanko/gen v0.0.0-20220629215839-ca02872e69cd
 	github.com/muesli/coral v1.0.0
 	github.com/spf13/viper v1.12.0
@@ -26,6 +26,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
+	github.com/yofu/dxf v0.0.0-20190710012328-5a6d1e83f16c // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
